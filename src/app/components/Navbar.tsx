@@ -25,7 +25,7 @@ function Navbar() {
             width={200}
             height={100}
             alt="logo"
-            className="w-15 md:filter md:brightness-0 md:invert md:w-25 2xl:w-30 "
+            className="w-15 md:filter md:brightness-0 md:invert md:w-25 2xl:w-25 "
           ></Image>
         </div>
         <NavigationMenu
@@ -35,7 +35,7 @@ function Navbar() {
           <NavigationMenuList className="">
             <NavigationMenuItem>
               {/* Home Option */}
-              <NavigationMenuTrigger className=" 2xl:text-xl ">
+              <NavigationMenuTrigger className=" 2xl:text-xl font-light ">
                 Home
               </NavigationMenuTrigger>
               <NavigationMenuContent className="">
@@ -52,7 +52,7 @@ function Navbar() {
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link href="#" className="2xl:text-lg">
+                      <Link href="/dokumen" className="2xl:text-lg">
                         Documents
                       </Link>
                     </NavigationMenuLink>
@@ -63,7 +63,7 @@ function Navbar() {
 
             {/* Services Option */}
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="2xl:text-xl">
+              <NavigationMenuTrigger className="2xl:text-xl font-light">
                 Services
               </NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -74,11 +74,7 @@ function Navbar() {
                         Live Tracking
                       </Link>
                     </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link href="#" className="2xl:text-lg">
-                        Shipment Services
-                      </Link>
-                    </NavigationMenuLink>
+
                     <NavigationMenuLink asChild>
                       <Link href="#" className="2xl:text-lg">
                         Tariff Check
@@ -91,7 +87,7 @@ function Navbar() {
 
             {/* News */}
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="2xl:text-xl">
+              <NavigationMenuTrigger className="2xl:text-xl font-light">
                 News
               </NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -114,14 +110,14 @@ function Navbar() {
 
             {/* Join Us */}
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="2xl:text-xl">
+              <NavigationMenuTrigger className="2xl:text-xl font-light">
                 Join Us
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="">
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#" className="2xl:text-lg">
+                      <Link href="" className="2xl:text-lg">
                         Career
                       </Link>
                     </NavigationMenuLink>
