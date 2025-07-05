@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import {
   NavigationMenu,
@@ -14,18 +15,24 @@ import { Button } from "@/components/ui/button";
 import { Headset } from "lucide-react";
 import DropDownMenuNavbar from "./DropDownMenuNavbar";
 import DropDownProfile from "./DropDownProfile";
+import { useRouter } from "next/navigation";
+
+
 
 function Navbar() {
+  const router = useRouter();
   return (
     <>
-      <nav className="flex items-center justify-between 2xl:p-10  w-full px-4 py-2 absolute z-30 max-md:bg-white/95 max-md:shadow-lg">
+      <nav className="flex items-center justify-between 2xl:p-10  w-full px-4 py-2 absolute z-30 max-md:bg-white/95 max-md:shadow-lg max-md:absolute">
         <div className="">
           <Image
             src="/croplogo.png"
             width={200}
             height={100}
             alt="logo"
-            className="w-15 md:filter md:brightness-0 md:invert md:w-25 2xl:w-25 "
+            quality={100}
+            className="cursor-pointer w-15 md:filter md:brightness-0 md:invert md:w-25 2xl:w-25 "
+            onClick={()=> router.push('/')}
           ></Image>
         </div>
         <NavigationMenu
@@ -42,7 +49,7 @@ function Navbar() {
                 <ul className="w-32 2xl:w-40">
                   <li className="">
                     <NavigationMenuLink asChild>
-                      <Link href="#" className="2xl:text-lg">
+                      <Link href="/" className="2xl:text-lg">
                         About Us
                       </Link>
                     </NavigationMenuLink>
@@ -136,8 +143,8 @@ function Navbar() {
         {/* BUTTON PROFILE AND CS - DESKTOP MODE */}
         <div className=" flex gap-x-3 max-sm:hidden">
           <DropDownProfile></DropDownProfile>
-          <Button variant={"outline"} className=" rounded-full">
-            <Headset size="icon"></Headset>
+          <Button variant={"outline"} className=" rounded-full xl:size-13">
+            <Headset size="icon" className="xl:size-7"></Headset>
           </Button>
         </div>
 

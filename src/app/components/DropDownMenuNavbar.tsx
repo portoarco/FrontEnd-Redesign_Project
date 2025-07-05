@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -9,37 +10,44 @@ import {
 
 import { CircleChevronDown } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function DropDownMenuNavbar() {
+  const router = useRouter();
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Button variant={"outline"} className="rounded-full">
-          <CircleChevronDown size="sm" className="rounded-full"></CircleChevronDown>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem>
-          <Link href="#">Home</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href="#">Services</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href="#">Join Us</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href="#">Order Now</Link>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator></DropdownMenuSeparator>
-        <DropdownMenuItem>
-          <Link href="#">Login</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href="#">Sign Up</Link>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant={"outline"} className="rounded-full">
+            <CircleChevronDown
+              size="sm"
+              className="rounded-full"
+            ></CircleChevronDown>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem asChild onClick={()=>router.push("/")}>
+            <p>Home</p>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="#">Services</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="#">Join Us</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="#">Order Now</Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator></DropdownMenuSeparator>
+          <DropdownMenuItem asChild onClick={() => router.push("/login")}>
+            <p>Login</p>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild onClick={()=>router.push('/signup')}>
+            <p>Sign Up</p>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }
 
