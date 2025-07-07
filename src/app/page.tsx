@@ -155,7 +155,7 @@ export default function Home() {
             className="shadow-xl rounded-lg overflow-hidden "
           >
             <Image
-              src="/compro-banner.jpeg"
+              src="/compro-banner.webp"
               width={400}
               height={50}
               alt="comp"
@@ -328,7 +328,7 @@ export default function Home() {
             >
               <div className="relative w-full aspect-square mb-4 overflow-hidden rounded-xl">
                 <Image
-                  src="/founder2.jpg"
+                  src="/founder2.webp"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   alt="founder1"
@@ -348,7 +348,7 @@ export default function Home() {
             >
               <div className="relative w-full aspect-square mb-4 overflow-hidden rounded-xl">
                 <Image
-                  src="/founder3.jpg"
+                  src="/founder3.webp"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   alt="founder1"
@@ -368,7 +368,7 @@ export default function Home() {
             >
               <div className="relative w-full aspect-square mb-4 overflow-hidden rounded-xl">
                 <Image
-                  src="/founder4.jpg"
+                  src="/founder4.webp"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   alt="founder1"
