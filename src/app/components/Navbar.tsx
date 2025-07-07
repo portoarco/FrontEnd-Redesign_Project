@@ -16,11 +16,37 @@ import { Headset } from "lucide-react";
 import DropDownMenuNavbar from "./DropDownMenuNavbar";
 import DropDownProfile from "./DropDownProfile";
 import { useRouter } from "next/navigation";
-
-
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hook";
+import axios from "axios";
+import { setUser } from "@/lib/redux/features/userSlice";
+import { useEffect } from "react";
 
 function Navbar() {
   const router = useRouter();
+  const fullname = useAppSelector((state) => state.user.fullname);
+  const dispatch = useAppDispatch();
+
+  // keep login
+  const keepLogin = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const res = await axios.get(
+          `https://sagekettle-us.backendless.app/api/data/accounts/${token}`
+        );
+
+        dispatch(setUser(res.data));
+      }
+    } catch (error) {
+      console.log(error);
+      alert("There is something wrong, check console!");
+    }
+  };
+
+  useEffect(()=>{
+    keepLogin();
+  },[])
+
   return (
     <>
       <nav className="flex items-center justify-between 2xl:p-10  w-full px-4 py-2 absolute z-30 max-md:bg-white/95 max-md:shadow-lg max-md:absolute">
@@ -32,7 +58,7 @@ function Navbar() {
             alt="logo"
             quality={100}
             className="cursor-pointer w-15 md:filter md:brightness-0 md:invert md:w-25 2xl:w-25 "
-            onClick={()=> router.push('/')}
+            onClick={() => router.push("/")}
           ></Image>
         </div>
         <NavigationMenu
@@ -49,7 +75,7 @@ function Navbar() {
                 <ul className="w-32 2xl:w-40">
                   <li className="">
                     <NavigationMenuLink asChild>
-                      <Link href="/" className="2xl:text-lg">
+                      <Link href="#about-us" className="2xl:text-lg">
                         About Us
                       </Link>
                     </NavigationMenuLink>
@@ -101,12 +127,12 @@ function Navbar() {
                 <ul className="w-32 2xl:w-40 ">
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#" className="2xl:text-lg">
+                      <Link href="#article-list" className="2xl:text-lg">
                         Article List
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link href="#" className="2xl:text-lg">
+                      <Link href="#faq-list" className="2xl:text-lg">
                         FAQ Section
                       </Link>
                     </NavigationMenuLink>
@@ -141,7 +167,13 @@ function Navbar() {
         </NavigationMenu>
 
         {/* BUTTON PROFILE AND CS - DESKTOP MODE */}
-        <div className=" flex gap-x-3 max-sm:hidden">
+        <div className=" flex gap-x-3 max-sm:hidden items-center">
+          {
+            fullname? <p className="text-white text-lg md:hidden lg:block">
+            Hello, <span className="font-bold">{fullname}</span> !
+          </p> : <div></div>
+          }
+          
           <DropDownProfile></DropDownProfile>
           <Button variant={"outline"} className=" rounded-full xl:size-13">
             <Headset size="icon" className="xl:size-7"></Headset>

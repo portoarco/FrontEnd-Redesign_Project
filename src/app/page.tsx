@@ -20,13 +20,47 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import axios from "axios";
+
+import Testimonials from "./components/Testimonials";
+import { useState } from "react";
+import { useEffect } from "react";
 // import Banner from "./components/Banner";
+interface Article {
+  objectId: string;
+  title: string;
+  category: string;
+  date: string;
+  author: string;
+  // Tambahkan field lain jika ada, misalnya imageUrl dsb
+}
 
 export default function Home() {
+  // import data artikel
+
+  // akses data artikel  dari backendless
+  const [articles, setArticles] = useState<Article[]>([]);
+
+  useEffect(() => {
+    async function showArticle() {
+      try {
+        const res = await axios.get(
+          "https://sagekettle-us.backendless.app/api/data/articles"
+        );
+        console.log(res.data);
+        setArticles(res.data);
+      } catch (error) {
+        console.log(error);
+        alert("There is something wrong. Check Console!");
+      }
+    }
+    showArticle();
+  }, []);
+
   return (
-    <>
+    <div className="">
       <header>
-        <div className="relative z-10 top-40 xl:top-60" >
+        <div className="relative z-10 top-40 xl:top-60">
           {/* Mobile Version Additional */}
           <div className="inset-0 flex justify-center mx-10 items-center flex-col">
             <div className="">
@@ -45,14 +79,14 @@ export default function Home() {
               Solusi Tepat Pengiriman Cepat dan Hemat{" "}
             </p>
             <div className="border-3 border-white p-3 rounded-xl mt-7 bg-white/20">
-              <Link href="#about-us" className="text-white font-medium text-1 lg:text-xl">
+              <Link
+                href="#about-us"
+                className="text-white font-medium text-1 lg:text-xl"
+              >
                 Get to Know
               </Link>
             </div>
-            <section
-              id="cek-resi"
-              className="mt-10"
-            >
+            <section id="cek-resi" className="mt-10">
               <Card className=" w-70 px-3 py-3 md:w-80">
                 {/* Cek Resi */}
                 <CardHeader>
@@ -82,7 +116,10 @@ export default function Home() {
         </div>
       </header>
 
-      <section id=" container-content" className=" px-5 py-6 max-sm:mt-[100%] md:mt-[30%] xl:mt-[40%] 2xl:mt-[20%]">
+      <section
+        id=" container-content"
+        className=" px-5 py-6 max-sm:mt-[100%] md:mt-[30%] xl:mt-[40%] 2xl:mt-[20%]"
+      >
         <div
           id="about-us"
           className="my-10 flex flex-col xl:flex-row gap-x-10  relative items-center md:px-15 md:align-middle"
@@ -120,13 +157,14 @@ export default function Home() {
           </div>
         </div>
         <div id="clients-carousel" className="lg:mt-40 ">
-          <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-[#202a44] text-center my-10 tracking-tight leading-snug drop-shadow-sm">
+          <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-[#202a44] text-center my-10 md:my-20 tracking-tight leading-snug drop-shadow-sm">
             Our Business Partner
           </p>
           <div className="flex justify-center items-center mt-10">
             <Carousel
               opts={{
                 align: "start",
+                loop: true,
               }}
               className=" max-w-[60vw] md:min-w-[80vw] mx-auto "
             >
@@ -189,16 +227,20 @@ export default function Home() {
             </Carousel>
           </div>
         </div>
-        <div id="achievements" className="md:mt-40 mt-10">
+
+        <div
+          id="achievements"
+          className="md:mt-30 mt-10 flex flex-col items-center"
+        >
           <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-[#202a44] text-center my-10 tracking-tight leading-snug drop-shadow-sm">
             Our Achievement
           </p>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 align-middle ">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div
               id="achievement1"
               className="rounded-xl bg-gradient-to-br from-orange-300 to-orange-500  shadow-xl text-center p-2 md:p-4"
             >
-              <p className="text-2xl font-bold text-white text-shadow-md my-4">
+              <p className="text-2xl lg:text-4xl font-bold text-white text-shadow-md my-4">
                 50+ Branch Offices
               </p>
               <p className="text-white">
@@ -209,7 +251,7 @@ export default function Home() {
               id="achievement2"
               className="rounded-xl bg-gradient-to-br from-orange-300 to-orange-500 shadow-xl text-center p-2 md:p-4"
             >
-              <p className="text-2xl font-bold text-white text-shadow-md my-4">
+              <p className="text-2xl lg:text-4xl font-bold text-white text-shadow-md my-4">
                 100+ Cash Counters
               </p>
               <p className="text-white">
@@ -220,7 +262,7 @@ export default function Home() {
               id="achievement3"
               className="rounded-xl bg-gradient-to-br from-orange-300 to-orange-500 shadow-xl text-center p-2 md:p-4"
             >
-              <p className="text-2xl font-bold text-white text-shadow-md my-4">
+              <p className="text-2xl lg:text-4xl font-bold text-white text-shadow-md my-4">
                 500+ Fleet Units
               </p>
               <p className="text-white">
@@ -229,8 +271,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div id="leader-list">
-          <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-[#202a44] text-center my-10 tracking-tight leading-snug drop-shadow-sm">
+        <div id="leader-list" className="md:my-30">
+          <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-[#202a44] text-center my-10  tracking-tight leading-snug drop-shadow-sm">
             Our Leaders
           </p>
 
@@ -314,8 +356,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="services">
-          <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-[#202a44] text-center my-10 tracking-tight leading-snug drop-shadow-sm">
+        <div id="services" className="md:my-50">
+          <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-[#202a44] text-center my-5  tracking-tight leading-snug drop-shadow-sm">
             Our Service
           </p>
 
@@ -430,125 +472,58 @@ export default function Home() {
 
         <div
           id="article-list"
-          className="bg-gradient-to-bl from-red-600 to-amber-300 -mx-5 p-10"
+          className="bg-gradient-to-bl from-red-600 to-amber-300 -mx-5 p-10 md:my-30"
         >
           <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-white text-center my-10 tracking-tight leading-snug drop-shadow-sm ">
             Latest Article
           </p>
           {/* cek dari websitenya maersk buat yang latest post model grid */}
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-x-10 gap-y-5 p-5">
-            <div
-              id="article-1"
-              className="bg-white grayscale-100 col-span-1 p-6 border-2 cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-103 hover:border-b-blue-800 hover:border-t-blue-800 hover:border-2 hover:grayscale-0"
-            >
-              <Badge className="p-2 bg-blue-500">Headline</Badge>
-              <p className="mt-5  md:text-xl font-semibold text-center text-blue-700 ">
-                Besok adalah waktu perawatan yang utama bagi kendaraan kita
-              </p>
-
-              <div className="relative my-5  h-35 md:h-60 xl:h-80  \ ">
-                <Image
-                  src="/news.jpg"
-                  fill
-                  alt="founder1"
-                  className="object-cover"
-                  quality={90}
-                ></Image>
-              </div>
-
-              <Link
-                href="#"
-                className="underline underline-offset-6 text-blue-700 "
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-x-10 gap-y-5 p-1 ">
+            {articles.map((article) => (
+              <div
+                id="article"
+                className="bg-white grayscale-100 col-span-1 p-6 border-2 cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-103 hover:border-b-blue-800 hover:border-t-blue-800 hover:border-2 hover:grayscale-0 hover:shadow-xl"
+                key={article.objectId}
               >
-                Read More
-              </Link>
-            </div>
+                <Badge className="p-2 bg-blue-500">{article.category}</Badge>
+                <p className="mt-5  md:text-xl font-semibold text-center text-blue-700 ">
+                  {article.title}
+                </p>
 
-            {/* Article-1 */}
-            <div
-              id="article-1"
-              className="bg-white grayscale-100 col-span-1 p-6 border-2 cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-103 hover:border-b-blue-800 hover:border-t-blue-800 hover:border-2 hover:grayscale-0"
-            >
-              <Badge className="p-2 bg-blue-500">Headline</Badge>
-              <p className="mt-5  md:text-xl font-semibold text-center text-blue-700 ">
-                Besok adalah waktu perawatan yang utama bagi kendaraan kita
-              </p>
+                <div className="relative my-5  h-35 md:h-60 xl:h-80  \ ">
+                  <Image
+                    src="/news.jpg"
+                    fill
+                    alt="founder1"
+                    className="object-cover"
+                    quality={90}
+                  ></Image>
+                </div>
+                <div className="flex justify-between">
+                  <p className="text-gray-600">{article.date}</p>
+                  <p className="text-gray-600">Author : {article.author}</p>
+                </div>
 
-              <div className="relative my-5  h-35 md:h-60 xl:h-80  \ ">
-                <Image
-                  src="/news.jpg"
-                  fill
-                  alt="founder1"
-                  className="object-cover"
-                  quality={90}
-                ></Image>
+                <Link
+                  href="#"
+                  className="underline underline-offset-6 text-blue-700 "
+                >
+                  Read More
+                </Link>
               </div>
-
-              <Link
-                href="#"
-                className="underline underline-offset-6 text-blue-700 "
-              >
-                Read More
-              </Link>
-            </div>
-
-            {/* Article-2 */}
-            <div
-              id="article-1"
-              className="bg-white grayscale-100 col-span-1 p-6 border-2 cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-103 hover:border-b-blue-800 hover:border-t-blue-800 hover:border-2 hover:grayscale-0"
-            >
-              <Badge className="p-2 bg-blue-500">Headline</Badge>
-              <p className="mt-5  md:text-xl font-semibold text-center text-blue-700 ">
-                Besok adalah waktu perawatan yang utama bagi kendaraan kita
-              </p>
-
-              <div className="relative my-5  h-35 md:h-60 xl:h-80  \ ">
-                <Image
-                  src="/news.jpg"
-                  fill
-                  alt="founder1"
-                  className="object-cover"
-                  quality={90}
-                ></Image>
-              </div>
-
-              <Link
-                href="#"
-                className="underline underline-offset-6 text-blue-700 "
-              >
-                Read More
-              </Link>
-            </div>
-
-            {/* Article-3 */}
-            <div
-              id="article-1"
-              className="bg-white grayscale-100 col-span-1 p-6 border-2 cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-103 hover:border-b-blue-800 hover:border-t-blue-800 hover:border-2 hover:grayscale-0"
-            >
-              <Badge className="p-2 bg-blue-500">Headline</Badge>
-              <p className="mt-5  md:text-xl font-semibold text-center text-blue-700 ">
-                Besok adalah waktu perawatan yang utama bagi kendaraan kita
-              </p>
-
-              <div className="relative my-5  h-35 md:h-60 xl:h-80  \ ">
-                <Image
-                  src="/news.jpg"
-                  fill
-                  alt="founder1"
-                  className="object-cover"
-                  quality={90}
-                ></Image>
-              </div>
-
-              <Link
-                href="#"
-                className="underline underline-offset-6 text-blue-700 "
-              >
-                Read More
-              </Link>
-            </div>
+            ))}
           </div>
+        </div>
+
+        <div
+          id="testimonials"
+          className="flex flex-col items-center justify-center my-10"
+        >
+          <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-[#202a44] text-center  tracking-tight leading-snug drop-shadow-sm">
+            Testimonials
+          </p>
+          <Testimonials></Testimonials>
         </div>
 
         <div id="faq-list" className="py-10">
@@ -639,8 +614,6 @@ export default function Home() {
           </Accordion>
         </div>
       </section>
-
-
-    </>
+    </div>
   );
 }

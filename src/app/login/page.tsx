@@ -4,9 +4,67 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Home } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
+import axios from "axios";
+import { useAppDispatch } from "@/lib/redux/hook";
+import { setUser } from "@/lib/redux/features/userSlice";
+// import { setUser } from "@/lib/redux/features/userSlice";
+// import { useAppDispatch } from "@/lib/redux/hook";
 
 function LoginPage() {
+  const inEmailRef = useRef<HTMLInputElement>(null);
+  const inPasswordRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
+
+  async function btnLogin() {
+    const email = inEmailRef.current?.value || "";
+    const password = inPasswordRef.current?.value || "";
+
+    // validasi input tidak kosong
+    if (!email || !password) {
+      alert("Email atau password tidak boleh kosong!");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        "https://sagekettle-us.backendless.app/api/data/accounts",
+        {
+          params: {
+            where: `email='${email}' AND password='${password}'`,
+          },
+        }
+      );
+
+      // cek ada/tidak datanya di database sesuai inputan user
+      if (response.data.length === 0) {
+        alert("Email atau Password Salah");
+        return;
+      }
+
+      // tampung response data login di variabel
+      const userLoginData = response.data[0];
+      console.log(userLoginData);
+
+      // Simpan Data ke Redux Store
+      dispatch(setUser(userLoginData));
+      router.replace("/dashboard");
+
+      // Simpan objectId ke localStorage
+      localStorage.setItem("token", userLoginData.objectId);
+    } catch (error) {
+      console.log(error);
+      alert("Error, Check Console");
+    }
+  }
+
   const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.replace("/dashboard");
+    }
+  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen">
@@ -30,26 +88,40 @@ function LoginPage() {
                 className="p-5"
                 type="email"
                 placeholder="Masukkan Email"
+                ref={inEmailRef}
               ></Input>
               <p className="py-3 text-xl">Password</p>
               <Input
                 className="p-5"
                 type="password"
                 placeholder="Masukkan Password"
+                ref={inPasswordRef}
               ></Input>
-              
-              <p className="mt-5 text-md">Not Registered Yet? <button className="text-gray-400 hover:text-gray-600" onClick={()=>router.push('signup')} >{" "}Register</button> </p>
-              
+
+              <p className="mt-5 text-md">
+                Not Registered Yet?{" "}
+                <button
+                  className="text-gray-400 hover:text-gray-600"
+                  onClick={() => router.push("signup")}
+                >
+                  {" "}
+                  Register
+                </button>{" "}
+              </p>
             </CardContent>
             <div className="flex gap-x-5 max-sm:justify-center">
               <Button
                 className="w-fit px-8 py-5"
                 type="button"
-                onClick={() => router.push("/dashboard")}
+                onClick={() => btnLogin()}
               >
                 Login
               </Button>
-              <Button className=" bg-blue-500 w-fit px-8 py-5" type="button" onClick={()=>router.push('/')}>
+              <Button
+                className=" bg-blue-500 w-fit px-8 py-5"
+                type="button"
+                onClick={() => router.push("/")}
+              >
                 <Home></Home>
                 <p>Back to Homepage</p>
               </Button>

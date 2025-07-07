@@ -3,7 +3,7 @@ import Image from "next/image";
 function Banner() {
   return (
     <div className="">
-      <div className=" w-[99vw] h-[100vh] xl:h-[90vh] lg:h-[80vh] absolute -z-10">
+      <div className=" w-[99vw] h-[100vh] xl:h-[100vh] lg:h-[100vh] absolute -z-10">
         <Image
           src="/mainbanner.jpg"
           // width={100}
