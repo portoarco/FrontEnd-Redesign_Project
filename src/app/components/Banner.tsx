@@ -5,7 +5,7 @@ function Banner() {
     <div className="">
       <div className=" w-[99vw] h-[100vh] xl:h-[98vh] lg:h-[98vh] absolute -z-10">
         <Image
-          src="/mainbanner.jpg"
+          src="/mainbanner2.webp"
           // width={100}
           // height={100}
           fill

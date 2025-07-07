@@ -26,7 +26,7 @@ function DropDownProfile() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant={"outline"} className="rounded-full xl:size-13 ">
-          <CircleUser size="icon" className="xl:size-7 "></CircleUser>
+          <CircleUser className="xl:size-7 "></CircleUser>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
