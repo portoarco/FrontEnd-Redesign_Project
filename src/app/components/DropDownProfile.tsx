@@ -31,25 +31,68 @@ function DropDownProfile() {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {/* Dashboard Menu */}
-        {fullname ? 
-        <DropdownMenuItem asChild onClick={()=>{router.push('/dashboard')}}>
-          <p>Dashboard</p>
-        </DropdownMenuItem> : <div></div>}
+        {fullname ? (
+          <DropdownMenuItem
+            asChild
+            onClick={() => {
+              router.push("/dashboard");
+            }}
+          >
+            <p>Dashboard</p>
+          </DropdownMenuItem>
+        ) : (
+          <div></div>
+        )}
         <DropdownMenuItem asChild onClick={() => router.push("/login")}>
           <p>Login</p>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild onClick={() => router.push("/signup")}>
+        {fullname ? (
+          <DropdownMenuItem
+            asChild
+            onClick={() => {
+              router.push("/dashboard");
+            }}
+          >
+            <p>Sign Up</p>
+          </DropdownMenuItem>
+        ) : (
+          <>
+            <DropdownMenuItem
+              asChild
+              onClick={() => {
+                router.push("/signup");
+              }}
+            >
+              <p>Sign Up</p>
+            </DropdownMenuItem>
+          </>
+        )}
+        {/* <DropdownMenuItem asChild onClick={() => router.push("/signup")}>
           <p>Sign Up</p>
-        </DropdownMenuItem>
-        {fullname ? 
-        <DropdownMenuItem asChild onClick={()=>{handleSignOut()}}>
-          <p>Sign Out</p>
-        </DropdownMenuItem> : <div></div>}
+        </DropdownMenuItem> */}
+        {fullname ? (
+          <DropdownMenuItem
+            asChild
+            onClick={() => {
+              handleSignOut();
+            }}
+          >
+            <p>Sign Out</p>
+          </DropdownMenuItem>
+        ) : (
+          <div></div>
+        )}
 
-        {fullname ? 
-        <DropdownMenuItem asChild onClick={()=>router.push('/')}>
-          <p className=""><Home/>Homepage</p>
-        </DropdownMenuItem> : <div></div>}
+        {fullname ? (
+          <DropdownMenuItem asChild onClick={() => router.push("/")}>
+            <p className="">
+              <Home />
+              Homepage
+            </p>
+          </DropdownMenuItem>
+        ) : (
+          <div></div>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
