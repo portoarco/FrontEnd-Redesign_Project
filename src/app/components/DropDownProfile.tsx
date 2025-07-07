@@ -4,9 +4,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CircleUser } from "lucide-react";
+import { CircleUser, Home } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hook";
 import { setUser } from "@/lib/redux/features/userSlice";
@@ -44,6 +45,11 @@ function DropDownProfile() {
         {fullname ? 
         <DropdownMenuItem asChild onClick={()=>{handleSignOut()}}>
           <p>Sign Out</p>
+        </DropdownMenuItem> : <div></div>}
+
+        {fullname ? 
+        <DropdownMenuItem asChild onClick={()=>router.push('/')}>
+          <p className=""><Home/>Homepage</p>
         </DropdownMenuItem> : <div></div>}
       </DropdownMenuContent>
     </DropdownMenu>

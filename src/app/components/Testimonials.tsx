@@ -69,24 +69,24 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <div className="w-full flex justify-center">
-      <div className="w-full  h-80  p-4">
+    <div className="w-[98vw]  flex justify-center">
+      <div className="">
         <Carousel
           opts={{
             align: "start",
             loop: true,
           }}
-          orientation="vertical"
+          orientation="horizontal"
           className="w-full h-full relative"
         >
           {/* Tombol Previous di dalam container */}
-          <div className="flex justify-center mb-2">
-            <CarouselPrevious className=" static" />
+          <div className="mb-2">
+            <CarouselPrevious className="" />
           </div>
 
-          <CarouselContent className="h-60 lg:p-10">
+          <CarouselContent className="lg:p-10 w-[70vw] basis-2 xl:basis-3">
             {testimonials.map((testimonial) => (
-              <CarouselItem key={testimonial.id} className="basis-full">
+              <CarouselItem key={testimonial.id} className="lg:basis-1/2">
                 <Card className="h-full">
                   <CardContent className="p-4 space-y-3 h-full flex flex-col justify-between">
                     <div className="flex items-center gap-3">
@@ -96,22 +96,22 @@ export default function Testimonials() {
                           alt="avatar"
                         />
                         <AvatarFallback className="text-xs">
-                          {testimonial.name.slice(0, 2)}
+                          {testimonial.name}
                         </AvatarFallback>
                       </Avatar>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bold text-sm  md:text-2xl truncate">
+                      <div className="flex flex-col gap-y-2 ">
+                        <p className="font-bold text-sm  xl:text-2xl truncate">
                           {testimonial.name}
                         </p>
-                        <p className="text-xs text-gray-500 md:text-xl truncate">
+                        <p className="text-xs text-gray-500 xl:text-lg truncate">
                           {testimonial.company}
                         </p>
-                        <p className="text-xs text-blue-500 font-medium truncate md:text-lg">
+                        <p className="text-xs text-blue-500 font-medium truncate xl:text-lg">
                           Product: {testimonial.product}
                         </p>
                       </div>
                     </div>
-                    <p className="text-gray-700 italic text-xs leading-relaxed flex-1 md:text-lg ">
+                    <p className="text-gray-700 italic text-xs leading-relaxed flex-1 xl:text-lg ">
                       {testimonial.comment}
                     </p>
                   </CardContent>
@@ -121,8 +121,8 @@ export default function Testimonials() {
           </CarouselContent>
 
           {/* Tombol Next di dalam container */}
-          <div className="flex justify-center mt-2">
-            <CarouselNext className=" static" />
+          <div className="flexmt-2">
+            <CarouselNext className="" />
           </div>
         </Carousel>
       </div>

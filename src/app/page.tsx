@@ -2,10 +2,15 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-// import { CircleDollarSign, MapPinned } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { MapPinned } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  MapPinned,
+} from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -20,11 +25,19 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import axios from "axios";
 
 import Testimonials from "./components/Testimonials";
 import { useState } from "react";
 import { useEffect } from "react";
+import { apiCall } from "@/helper/apiCall";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { articleCategory } from "@/helper/articleCategory";
 // import Banner from "./components/Banner";
 interface Article {
   objectId: string;
@@ -41,24 +54,37 @@ export default function Home() {
   // akses data artikel  dari backendless
   const [articles, setArticles] = useState<Article[]>([]);
 
+  // filter category
+  const [category] = useState<string[]>(["All", ...articleCategory]);
+  const [filterCategory, setFilterCategory] = useState<string>("All");
+
   useEffect(() => {
     async function showArticle() {
       try {
-        const res = await axios.get(
-          "https://sagekettle-us.backendless.app/api/data/articles"
-        );
-        console.log(res.data);
-        setArticles(res.data);
+        let url = "/articles";
+
+        if (filterCategory !== "All") {
+          const query = encodeURIComponent(`category='${filterCategory}'`);
+          url += `?where=${query}`;
+        }
+
+        const { data } = await apiCall.get(url);
+
+        if (!data || data.length === 0) {
+          alert("Artikel tidak ditemukan.");
+          setFilterCategory("All");
+        }
+        setArticles(data);
       } catch (error) {
         console.log(error);
         alert("There is something wrong. Check Console!");
       }
     }
     showArticle();
-  }, []);
+  }, [filterCategory]);
 
   return (
-    <div className="">
+    <div>
       <header>
         <div className="relative z-10 top-40 xl:top-60">
           {/* Mobile Version Additional */}
@@ -91,7 +117,7 @@ export default function Home() {
                 {/* Cek Resi */}
                 <CardHeader>
                   <div className="flex gap-x-2 justify-center items-center">
-                    <MapPinned></MapPinned>
+                    <MapPinned size={24}></MapPinned>
                     <p className="text-sm md:text-xl">Lacak Resi</p>
                   </div>
                 </CardHeader>
@@ -156,7 +182,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div id="clients-carousel" className="lg:mt-40 ">
+        <section id="clients-carousel" className="lg:mt-40 ">
           <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-[#202a44] text-center my-10 md:my-20 tracking-tight leading-snug drop-shadow-sm">
             Our Business Partner
           </p>
@@ -226,9 +252,9 @@ export default function Home() {
               <CarouselNext />
             </Carousel>
           </div>
-        </div>
+        </section>
 
-        <div
+        <section
           id="achievements"
           className="md:mt-30 mt-10 flex flex-col items-center"
         >
@@ -270,8 +296,8 @@ export default function Home() {
               </p>
             </div>
           </div>
-        </div>
-        <div id="leader-list" className="md:my-30">
+        </section>
+        <section id="leader-list" className="md:my-30">
           <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-[#202a44] text-center my-10  tracking-tight leading-snug drop-shadow-sm">
             Our Leaders
           </p>
@@ -354,9 +380,9 @@ export default function Home() {
               <p className="text-md">Director</p>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div id="services" className="md:my-50">
+        <section id="services" className="md:my-50">
           <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-[#202a44] text-center my-5  tracking-tight leading-snug drop-shadow-sm">
             Our Service
           </p>
@@ -382,7 +408,7 @@ export default function Home() {
               {/* Service Detail - Takes 3 columns out of 5 */}
               <div
                 id="service-detail"
-                className="md:col-span-3 border border-white p-6 flex flex-col justify-center min-h-[200px] md:min-h-[250px] max-sm:border-b-gray-400"
+                className="md:col-span-3 border border-white p-3 md:p-6 flex flex-col justify-center min-h-[200px] md:min-h-[250px] max-sm:border-b-gray-400"
               >
                 <p className="text-3xl font-semibold mb-4 max-sm:text-center md:text-4xl">
                   REX Services
@@ -405,7 +431,7 @@ export default function Home() {
               {/* Service Detail - Takes 3 columns out of 5 */}
               <div
                 id="service-detail"
-                className="md:col-span-3 border-b border-white p-6 flex flex-col justify-center min-h-[200px] md:min-h-[250px] max-sm:border-b-gray-400 "
+                className="md:col-span-3 border-b border-white p-3 md:p-6 flex flex-col justify-center min-h-[200px] md:min-h-[250px] max-sm:border-b-gray-400 "
               >
                 <p className="text-3xl font-semibold mb-4 text-end max-sm:text-center md:text-4xl">
                   Express and Regular
@@ -450,7 +476,7 @@ export default function Home() {
               {/* Service Detail - Takes 3 columns out of 5 */}
               <div
                 id="service-detail"
-                className="md:col-span-3 border-b border-white p-6 flex flex-col justify-center min-h-[200px] md:min-h-[250px]"
+                className="md:col-span-3 border-b border-white p-3 md:p-6 flex flex-col justify-center min-h-[200px] md:min-h-[250px]"
               >
                 <p className="text-3xl font-semibold mb-4 max-sm:text-center md:text-4xl">
                   National and International
@@ -468,53 +494,89 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div
+        <section
           id="article-list"
-          className="bg-gradient-to-bl from-red-600 to-amber-300 -mx-5 p-10 md:my-30"
+          className="bg-gradient-to-bl from-red-600 to-amber-300 -mx-5 p-20 py-30 md:my-30"
         >
-          <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-white text-center my-10 tracking-tight leading-snug drop-shadow-sm ">
+          <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-white text-center  tracking-tight leading-snug drop-shadow-sm ">
             Latest Article
           </p>
-          {/* cek dari websitenya maersk buat yang latest post model grid */}
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-x-10 gap-y-5 p-1 ">
-            {articles.map((article) => (
-              <div
-                id="article"
-                className="bg-white grayscale-100 col-span-1 p-6 border-2 cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-103 hover:border-b-blue-800 hover:border-t-blue-800 hover:border-2 hover:grayscale-0 hover:shadow-xl"
-                key={article.objectId}
-              >
-                <Badge className="p-2 bg-blue-500">{article.category}</Badge>
-                <p className="mt-5  md:text-xl font-semibold text-center text-blue-700 ">
-                  {article.title}
-                </p>
-
-                <div className="relative my-5  h-35 md:h-60 xl:h-80  \ ">
-                  <Image
-                    src="/news.jpg"
-                    fill
-                    alt="founder1"
-                    className="object-cover"
-                    quality={90}
-                  ></Image>
-                </div>
-                <div className="flex justify-between">
-                  <p className="text-gray-600">{article.date}</p>
-                  <p className="text-gray-600">Author : {article.author}</p>
-                </div>
-
-                <Link
-                  href="#"
-                  className="underline underline-offset-6 text-blue-700 "
-                >
-                  Read More
-                </Link>
-              </div>
-            ))}
+          {/* Filter Article Button */}
+          <div className="py-5 flex max-sm:justify-center ">
+            <Select value={filterCategory} onValueChange={setFilterCategory}>
+              <SelectTrigger className="bg-white md:text-lg md:p-5 md:w-50">
+                <SelectValue placeholder="Filter Category"></SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {category.map((e) => (
+                  <SelectItem key={e} value={e} className="md:text-lg md:p-3">
+                    {e}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
-        </div>
+
+          <div className="w-full md:overflow-x-auto overflow-y-auto xl:h-170">
+            <div className="relative  md:p-10 gap-10 flex max-sm:flex-col max-sm:h-300 flex-nowrap ">
+              {articles.map((article) => (
+                <div
+                  id="article"
+                  className=" rounded-lg bg-white grayscale-100 max-sm:grayscale-0 md:min-w-[400px] p-6 border-2  md:min-h-140 cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-103 hover:border-blue-800  hover:border-4 hover:grayscale-0 hover:shadow-xl"
+                  key={article.objectId}
+                >
+                  <Badge className="p-2 bg-blue-500">{article.category}</Badge>
+                  <div className="flex flex-col">
+                    <p className="mt-5  md:text-xl xl:text-xl  font-semibold text-center text-blue-700  ">
+                      {article.title}
+                    </p>
+
+                    <div className="relative my-5  h-35 md:h-60 xl:h-80  \ ">
+                      <Image
+                        src="/news.jpg"
+                        fill
+                        alt="founder1"
+                        className="object-cover"
+                        quality={90}
+                      ></Image>
+                    </div>
+
+                    <div className="flex md:justify-between max-sm:flex-col justify-center  items-center xl:text-xs  md:mx-auto md:absolute md:gap-x-10 md:bottom-2">
+                      <p className="text-gray-600">{article.date}</p>
+                      <p className="text-gray-600">Author : {article.author}</p>
+                      <Link
+                        href="#"
+                        className="underline underline-offset-6 text-blue-700 "
+                      >
+                        Read More
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Arrow Horizontal  */}
+          <div className="flex justify-center mt-12 max-sm:hidden ">
+            <ArrowLeft className="text-white size-12" />
+            <p className="text-white mx-auto max-sm:hidden text-3xl font-bold select-none">
+              Scroll Item Horizontally
+            </p>
+            <ArrowRight className="text-white size-12" />
+          </div>
+
+          {/* Arrow Vertical */}
+          <div className="flex flex-col justify-center items-center mt-5 sm:hidden gap-y-3 ">
+            <ArrowUp className="text-white size-7" />
+            <p className="text-white sm:hidden text-md font-bold select-none">
+              Scroll Item Vertically
+            </p>
+            <ArrowDown className="text-white size-7" />
+          </div>
+        </section>
 
         <div
           id="testimonials"

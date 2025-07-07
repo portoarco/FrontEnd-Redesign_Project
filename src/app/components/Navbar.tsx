@@ -17,9 +17,9 @@ import DropDownMenuNavbar from "./DropDownMenuNavbar";
 import DropDownProfile from "./DropDownProfile";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hook";
-import axios from "axios";
 import { setUser } from "@/lib/redux/features/userSlice";
 import { useEffect } from "react";
+import { apiCall } from "@/helper/apiCall";
 
 function Navbar() {
   const router = useRouter();
@@ -31,9 +31,7 @@ function Navbar() {
     try {
       const token = localStorage.getItem("token");
       if (token) {
-        const res = await axios.get(
-          `https://sagekettle-us.backendless.app/api/data/accounts/${token}`
-        );
+        const res = await apiCall.get(`/accounts/${token}`);
 
         dispatch(setUser(res.data));
       }
@@ -43,9 +41,9 @@ function Navbar() {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     keepLogin();
-  },[])
+  }, []);
 
   return (
     <>
@@ -127,7 +125,7 @@ function Navbar() {
                 <ul className="w-32 2xl:w-40 ">
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#article-list" className="2xl:text-lg">
+                      <Link href="/"  className="2xl:text-lg">
                         Article List
                       </Link>
                     </NavigationMenuLink>
@@ -168,22 +166,24 @@ function Navbar() {
 
         {/* BUTTON PROFILE AND CS - DESKTOP MODE */}
         <div className=" flex gap-x-3 max-sm:hidden items-center">
-          {
-            fullname? <p className="text-white text-lg md:hidden lg:block">
-            Hello, <span className="font-bold">{fullname}</span> !
-          </p> : <div></div>
-          }
-          
+          {fullname ? (
+            <p className="text-white text-lg md:hidden lg:block">
+              Hello, <span className="font-bold">{fullname}</span> !
+            </p>
+          ) : (
+            <div></div>
+          )}
+
           <DropDownProfile></DropDownProfile>
           <Button variant={"outline"} className=" rounded-full xl:size-13">
-            <Headset size="icon" className="xl:size-7"></Headset>
+            <Headset className="xl:size-7"></Headset>
           </Button>
         </div>
 
         <div className="sm:hidden flex gap-x-3">
           {/* BUTTON CS - MOBILE */}
           <Button variant={"outline"} className=" rounded-full">
-            <Headset size="icon"></Headset>
+            <Headset className="xl:size-7"></Headset>
           </Button>
           {/* BUTTON MENU - MOBILE MODE */}
           <DropDownMenuNavbar></DropDownMenuNavbar>

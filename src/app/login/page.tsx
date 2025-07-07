@@ -5,9 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Home } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
-import axios from "axios";
 import { useAppDispatch } from "@/lib/redux/hook";
 import { setUser } from "@/lib/redux/features/userSlice";
+import { apiCall } from "@/helper/apiCall";
 // import { setUser } from "@/lib/redux/features/userSlice";
 // import { useAppDispatch } from "@/lib/redux/hook";
 
@@ -27,14 +27,11 @@ function LoginPage() {
     }
 
     try {
-      const response = await axios.get(
-        "https://sagekettle-us.backendless.app/api/data/accounts",
-        {
-          params: {
-            where: `email='${email}' AND password='${password}'`,
-          },
-        }
-      );
+      const response = await apiCall.get("/accounts", {
+        params: {
+          where: `email='${email}' AND password='${password}'`,
+        },
+      });
 
       // cek ada/tidak datanya di database sesuai inputan user
       if (response.data.length === 0) {

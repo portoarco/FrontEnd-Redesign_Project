@@ -3,15 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
-import axios from "axios";
 import { toast, Bounce } from "react-toastify";
+import { apiCall } from "@/helper/apiCall";
 
 function SignUpPage() {
   const router = useRouter();
-
 
   // const fullname = useAppSelector((state) => state.user.fullname);
   // const email = useAppSelector((state) => state.user.email);
@@ -86,10 +84,13 @@ function SignUpPage() {
       }
 
       // send data to backendless
-      const response = await axios.post(
-        "https://sagekettle-us.backendless.app/api/data/accounts",
-        { fullname, email, password }
-      );
+
+      const response = await apiCall.post("/accounts", {
+        fullname,
+        email,
+        password,
+      });
+
       // Success Alert
       toast.success("Data Berhasil Tersimpan", {
         position: "top-right",
@@ -102,7 +103,6 @@ function SignUpPage() {
         theme: "colored",
         transition: Bounce,
       });
-
 
       // move to login
       router.push("/login");
@@ -163,7 +163,11 @@ function SignUpPage() {
               <Button className="w-fit " onClick={btnSignUp}>
                 Register
               </Button>
-              <Button className="w-fit" type="button" onClick={()=>router.push('/login')}>
+              <Button
+                className="w-fit"
+                type="button"
+                onClick={() => router.push("/login")}
+              >
                 Login
               </Button>
             </div>

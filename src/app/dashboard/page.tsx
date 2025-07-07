@@ -15,11 +15,12 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { articleCategory } from "@/helper/articleCategory";
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "@/lib/redux/hook";
 import { setArticleSlice } from "@/lib/redux/features/articleSlice";
 import { useRouter } from "next/navigation";
+import { apiCall } from "@/helper/apiCall";
+import EditArticle from "./components/EditArticle";
 
 interface Article {
   title: string;
@@ -38,10 +39,9 @@ function Dashboard() {
   const inTitleRef = useRef<HTMLInputElement>(null);
   const inAuthorRef = useRef<HTMLInputElement>(null);
   const [lead, setLead] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<string|undefined>("");
   const [content, setContent] = useState("");
   // const [picture, setPicture] = useState<File | null>(null);
-
 
   // buat penampung data artikel
 
@@ -51,7 +51,7 @@ function Dashboard() {
   // kolektifkan data
   const [articles, setArticles] = useState<Article[]>([]);
   // router
-  const router = useRouter()
+  const router = useRouter();
 
   async function submitArticle() {
     const title = inTitleRef.current?.value;
@@ -68,20 +68,9 @@ function Dashboard() {
         return;
       }
 
-      // const newArticle = {
-      //   title,
-      //   author,
-      //   lead,
-      //   category,
-      //   content,
-      //   date,
-      //   picture: picture ? URL.createObjectURL(picture) : "",
-      // };
+      await apiCall.post(
+        "/articles",
 
-      // setArticles((prev) => [newArticle, ...prev]);
-
-      await axios.post(
-        "https://sagekettle-us.backendless.app/api/data/articles",
         {
           title,
           author,
@@ -89,8 +78,9 @@ function Dashboard() {
           category,
           content,
           date,
-        }
+        } 
       );
+      toast.success('Artikel Berhasil Ditambahkan!')
 
       getArticleList();
 
@@ -110,16 +100,13 @@ function Dashboard() {
   // getArticleList
   async function getArticleList() {
     try {
-      const res = await axios.get(
-        "https://sagekettle-us.backendless.app/api/data/articles"
-      );
+      const res = await apiCall.get("/articles");
       setArticles(res.data);
 
       // simpan data artikel di articleList untuk ke store redux
       const articleList = res.data;
       // simpan data ke redux
       dispatch(setArticleSlice(articleList));
-
     } catch (error) {
       console.log(error);
       alert("Something Went Wrong, Check Console!");
@@ -129,7 +116,7 @@ function Dashboard() {
   // Tetap tampilkan data saat render halaman pertama kali
   useEffect(() => {
     getArticleList();
-  },[]);
+  }, []);
 
   // delete Button
   async function onBtnDelete(objectId: string) {
@@ -140,10 +127,8 @@ function Dashboard() {
         return;
       }
 
-      await axios.delete(
-        `https://sagekettle-us.backendless.app/api/data/articles/${objectId}`,
-        {}
-      );
+      await apiCall.delete(`articles/${objectId}`);
+
       toast.success("Data berhasil dihapus!");
       getArticleList();
     } catch (error) {
@@ -190,7 +175,10 @@ function Dashboard() {
                     </div>
                     <div>
                       <label className="">Category</label>
-                      <Select onValueChange={(value) => setCategory(value)}>
+                      <Select
+                        value={category}
+                        onValueChange={setCategory}
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Category"></SelectValue>
                         </SelectTrigger>
@@ -238,7 +226,7 @@ function Dashboard() {
                 </Card>
               </div>
             </div>
-            <div id="article-list" className="my-10 py-5">
+            <div id="article-dashboard" className="my-10 py-5">
               <p className="text-2xl font-semibold text-center">
                 Manage Article
               </p>
@@ -295,13 +283,13 @@ function Dashboard() {
                         <div className="flex flex-col">
                           <div className="flex justify-between my-5">
                             <Button type="button">Show Details</Button>
+                            {/* Btn Edit dan Delete */}
                             <div className="flex gap-x-2">
-                              <Button
-                                type="button"
-                                className="bg-amber-400 hover:bg-amber-500"
-                              >
-                                Edit
-                              </Button>
+                              <EditArticle
+                                data={article}
+                                loadArticle={getArticleList}
+                              ></EditArticle>
+
                               <Button
                                 variant={"destructive"}
                                 onClick={() => onBtnDelete(article.objectId)}
