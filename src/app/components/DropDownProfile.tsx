@@ -43,6 +43,7 @@ function DropDownProfile() {
         ) : (
           <div></div>
         )}
+        {/* Login */}
         {fullname ? (
           <DropdownMenuItem className="hidden">
             <p>Login Account</p>
@@ -57,6 +58,7 @@ function DropDownProfile() {
             <p>Login</p>
           </DropdownMenuItem>
         )}
+
         {fullname ? (
           <DropdownMenuItem className="hidden">
             <p>Sign Up</p>
