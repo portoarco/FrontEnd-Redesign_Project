@@ -45,7 +45,7 @@ function DropDownProfile() {
         )}
         {fullname ? (
           <DropdownMenuItem className="hidden">
-            <p>Login</p>
+            <p>Login Account</p>
           </DropdownMenuItem>
         ) : (
           <DropdownMenuItem
