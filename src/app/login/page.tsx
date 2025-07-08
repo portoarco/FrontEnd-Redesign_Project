@@ -69,7 +69,7 @@ function LoginPage() {
         <div id="intro" className="w-1/2 max-lg:hidden ">
           <p className=" text-5xl font-bold">Welcome!</p>
           <p className="text-xl mt-5">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Commoditii
           </p>
         </div>
         <div id="card" className="max-lg:w-[90vw] w-1/2 shadow-md ">
