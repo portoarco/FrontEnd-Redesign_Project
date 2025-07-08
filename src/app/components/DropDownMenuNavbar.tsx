@@ -42,13 +42,13 @@ function DropDownMenuNavbar() {
             <p>Home</p>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="#">Services</Link>
+            <Link href="/notfoundpage">Services</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="#">Join Us</Link>
+            <Link href="/notfoundpage">Join Us</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="#">Order Now</Link>
+            <Link href="/notfoundpage">Order Now</Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator></DropdownMenuSeparator>
           {fullname ? (

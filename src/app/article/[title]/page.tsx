@@ -53,7 +53,7 @@ const ArticleDetailPage = async ({params}:IArticleDetailPageProps) => {
           <p id="lead-article" className="md:text-xl  text-justify text-gray-700 mb-3">
             This is lead : {detailData?.lead}
           </p>
-          <p id="content" className="xl:text-lg">{detailData?.content}</p>
+          <p id="content" className="xl:text-lg text-justify">{detailData?.content}</p>
         </div>
       </div>
     </>
