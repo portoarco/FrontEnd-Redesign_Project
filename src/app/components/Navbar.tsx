@@ -61,7 +61,7 @@ function Navbar() {
         </div>
         <NavigationMenu
           viewport={false}
-          className="max-md:hidden rounded-lg p-4 shadow-xl bg-white md:p-1 2xl:px-2 2xl:py-3"
+          className="max-md:hidden rounded-lg p-4 shadow-xl bg-white md:p-1  2xl:py-3"
         >
           <NavigationMenuList className="">
             <NavigationMenuItem>
@@ -125,7 +125,7 @@ function Navbar() {
                 <ul className="w-32 2xl:w-40 ">
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="/"  className="2xl:text-lg">
+                      <Link href="/" className="2xl:text-lg">
                         Article List
                       </Link>
                     </NavigationMenuLink>
@@ -177,7 +177,7 @@ function Navbar() {
           <DropDownProfile></DropDownProfile>
           <Button variant={"outline"} className=" rounded-full xl:size-13">
             <a href="tel:+622156958333 ">
-            <Headset className="xl:size-7"></Headset>
+              <Headset className="xl:size-7"></Headset>
             </a>
           </Button>
         </div>
@@ -185,7 +185,9 @@ function Navbar() {
         <div className="sm:hidden flex gap-x-3">
           {/* BUTTON CS - MOBILE */}
           <Button variant={"outline"} className=" rounded-full">
-            <Headset className="xl:size-7"></Headset>
+            <a href="tel:+622156958333 ">
+              <Headset className="xl:size-7"></Headset>
+            </a>
           </Button>
           {/* BUTTON MENU - MOBILE MODE */}
           <DropDownMenuNavbar></DropDownMenuNavbar>

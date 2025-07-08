@@ -86,7 +86,7 @@ export default function Home() {
   return (
     <div>
       <header>
-        <div className="relative z-10 top-40 xl:top-60">
+        <div className="relative z-10 top-40 xl:top-50">
           {/* Mobile Version Additional */}
           <div className="inset-0 flex justify-center mx-10 items-center flex-col">
             <div className="">
