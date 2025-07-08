@@ -498,7 +498,7 @@ export default function Home() {
 
         <section
           id="article-list"
-          className="bg-gradient-to-bl from-red-600 to-amber-300 -mx-5 p-20 py-30 md:my-30"
+          className="bg-gradient-to-bl from-red-600 to-amber-300 -mx-5 p-4 py-30 md:my-30"
         >
           <p className="text-3xl md:text-4xl xl:text-5xl font-semibold text-white text-center  tracking-tight leading-snug drop-shadow-sm ">
             Latest Article
@@ -520,11 +520,11 @@ export default function Home() {
           </div>
 
           <div className="w-full md:overflow-x-auto overflow-y-auto xl:h-170">
-            <div className="relative  md:p-10 gap-10 flex max-sm:flex-col max-sm:h-300 flex-nowrap ">
+            <div className="relative  md:p-10 gap-10 flex max-sm:flex-col max-sm:h-110 flex-nowrap ">
               {articles.map((article) => (
                 <div
                   id="article"
-                  className=" rounded-lg bg-white grayscale-100 max-sm:grayscale-0 md:min-w-[400px] p-6 border-2  md:min-h-140 cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-103 hover:border-blue-800  hover:border-4 hover:grayscale-0 hover:shadow-xl"
+                  className=" rounded-lg bg-white grayscale-100 max-lg:grayscale-0 md:min-w-[400px] p-6 border-2  md:min-h-140 cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-103 hover:border-blue-800  hover:border-4 hover:grayscale-0 hover:shadow-xl"
                   key={article.objectId}
                 >
                   <Badge className="p-2 bg-blue-500">{article.category}</Badge>

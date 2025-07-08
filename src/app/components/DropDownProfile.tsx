@@ -43,16 +43,22 @@ function DropDownProfile() {
         ) : (
           <div></div>
         )}
-        <DropdownMenuItem asChild onClick={() => router.push("/login")}>
-          <p>Login</p>
-        </DropdownMenuItem>
         {fullname ? (
+          <DropdownMenuItem className="hidden">
+            <p>Login</p>
+          </DropdownMenuItem>
+        ) : (
           <DropdownMenuItem
             asChild
             onClick={() => {
-              router.push("/dashboard");
+              router.push("/login");
             }}
           >
+            <p>Login</p>
+          </DropdownMenuItem>
+        )}
+        {fullname ? (
+          <DropdownMenuItem className="hidden">
             <p>Sign Up</p>
           </DropdownMenuItem>
         ) : (
@@ -82,7 +88,6 @@ function DropDownProfile() {
         ) : (
           <div></div>
         )}
-
         {fullname ? (
           <DropdownMenuItem asChild onClick={() => router.push("/")}>
             <p className="">

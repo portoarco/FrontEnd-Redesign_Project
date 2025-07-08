@@ -39,7 +39,7 @@ function Dashboard() {
   const inTitleRef = useRef<HTMLInputElement>(null);
   const inAuthorRef = useRef<HTMLInputElement>(null);
   const [lead, setLead] = useState("");
-  const [category, setCategory] = useState<string|undefined>("");
+  const [category, setCategory] = useState<string | undefined>("");
   const [content, setContent] = useState("");
   // const [picture, setPicture] = useState<File | null>(null);
 
@@ -78,9 +78,9 @@ function Dashboard() {
           category,
           content,
           date,
-        } 
+        }
       );
-      toast.success('Artikel Berhasil Ditambahkan!')
+      toast.success("Artikel Berhasil Ditambahkan!");
 
       getArticleList();
 
@@ -175,10 +175,7 @@ function Dashboard() {
                     </div>
                     <div>
                       <label className="">Category</label>
-                      <Select
-                        value={category}
-                        onValueChange={setCategory}
-                      >
+                      <Select value={category} onValueChange={setCategory}>
                         <SelectTrigger>
                           <SelectValue placeholder="Category"></SelectValue>
                         </SelectTrigger>
@@ -230,21 +227,7 @@ function Dashboard() {
               <p className="text-2xl font-semibold text-center">
                 Manage Article
               </p>
-              <div className=" w-fit my-10">
-                <Select>
-                  <SelectTrigger className="bg-white">
-                    <SelectValue placeholder="Category"></SelectValue>
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="All">All</SelectItem>
-                    {articleCategory.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+
               <div className="flex flex-col md:flex-row gap-x-6 min-w-full md:overflow-x-auto overflow-y-auto gap-y-4 p-4">
                 {articles.map((article) => (
                   <Card
@@ -276,13 +259,15 @@ function Dashboard() {
                         <Badge className="bg-blue-400">
                           {article.category}
                         </Badge>
-                        <p className="text-xl font-bold text-wrap  text-justify mt-5">
+                        <p className="text-xl font-bold text-wrap  text-justify mt-5 max-sm:text-center">
                           {article.title}
                         </p>
 
                         <div className="flex flex-col">
-                          <div className="flex justify-between my-5">
-                            <Button type="button">Show Details</Button>
+                          <div className="flex max-sm:flex-col max-sm:gap-y-3 max-sm:items-center  justify-between my-5">
+                            <Button type="button" className="max-sm:w-full">
+                              Show Details
+                            </Button>
                             {/* Btn Edit dan Delete */}
                             <div className="flex gap-x-2">
                               <EditArticle

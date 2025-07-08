@@ -22,7 +22,7 @@ const testimonials = [
   },
   {
     id: 2,
-    avatar: "/founder2.jpg",
+    avatar: "/founder2.webp",
     name: "Fajar",
     company: "PT Sopipoy",
     product: "Rex 0",
@@ -31,7 +31,7 @@ const testimonials = [
   },
   {
     id: 3,
-    avatar: "/founder3.jpg",
+    avatar: "/founder3.webp",
     name: "Fajrul",
     company: "PT Gopal",
     product: "Rex 1",
@@ -40,7 +40,7 @@ const testimonials = [
   },
   {
     id: 4,
-    avatar: "/founder4.jpg",
+    avatar: "/founder4.webp",
     name: "Fajrudin",
     company: "CV OVA",
     product: "Rex Reguler",
@@ -58,7 +58,7 @@ const testimonials = [
   },
   {
     id: 6,
-    avatar: "/founder3.jpg",
+    avatar: "/founder3.webp",
     name: "Cak Bando",
     company: "PT Sidoarjo Aman Tentram",
     product: "International",
