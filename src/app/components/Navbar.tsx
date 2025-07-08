@@ -176,7 +176,9 @@ function Navbar() {
 
           <DropDownProfile></DropDownProfile>
           <Button variant={"outline"} className=" rounded-full xl:size-13">
+            <a href="tel:+622156958333 ">
             <Headset className="xl:size-7"></Headset>
+            </a>
           </Button>
         </div>
 
