@@ -99,7 +99,7 @@ const EditArticle: React.FunctionComponent<IEditArticleProps> = (props) => {
               ></Input>
             </div>
             <div>
-              <Select defaultValue={props.data.category} value={category} onValueChange={setCategory}>
+              <Select defaultValue={props.data.category} onValueChange={setCategory}>
                 <SelectTrigger>
                   <SelectValue placeholder="Category"></SelectValue>
                 </SelectTrigger>
