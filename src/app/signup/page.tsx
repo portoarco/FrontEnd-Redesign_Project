@@ -113,6 +113,12 @@ function SignUpPage() {
     }
   }
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      btnSignUp();
+    }
+  }
+
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen">
       <div className="lg:w-[60vw] w-[70vw] lg:bg-white flex  flex-col lg:flex-row rounded-xl p-10 shadow-2xl items-center lg:gap-x-4 2xl:mt-30">
@@ -136,6 +142,7 @@ function SignUpPage() {
                 type="text"
                 placeholder="Masukkan Nama Lengkap"
                 ref={inFullnameRef}
+                onKeyDown={handleKeyDown}
               ></Input>
               <p className="py-3 text-xl">Email</p>
               <Input
@@ -143,6 +150,7 @@ function SignUpPage() {
                 type="email"
                 placeholder="Masukkan Email"
                 ref={inEmailRef}
+                onKeyDown={handleKeyDown}
               ></Input>
               <p className="py-3 text-xl">Password</p>
               <Input
@@ -150,6 +158,7 @@ function SignUpPage() {
                 type="password"
                 placeholder="Masukkan Password"
                 ref={inPasswordRef}
+                onKeyDown={handleKeyDown}
               ></Input>
               <p className="py-3 text-xl">Confirmation Password</p>
               <Input
@@ -157,6 +166,7 @@ function SignUpPage() {
                 type="password"
                 placeholder="Tulis Ulang Password"
                 ref={inConfirmPasswordRef}
+                onKeyDown={handleKeyDown}
               ></Input>
             </CardContent>
             <div className="flex gap-x-5 max-sm:justify-center">

@@ -64,7 +64,7 @@ function Dashboard() {
 
     try {
       if (!title || !author || !lead || !category || !content) {
-        alert("Harap isi semua data!");
+        toast.warn('Harap isi semua data!')
         return;
       }
 
@@ -265,7 +265,13 @@ function Dashboard() {
 
                         <div className="flex flex-col">
                           <div className="flex max-sm:flex-col max-sm:gap-y-3 max-sm:items-center  justify-between my-5">
-                            <Button type="button" className="max-sm:w-full">
+                            <Button
+                              type="button"
+                              className="max-sm:w-full"
+                              onClick={() =>
+                                router.push(`/article/${article.title}`)
+                              }
+                            >
                               Show Details
                             </Button>
                             {/* Btn Edit dan Delete */}

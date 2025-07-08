@@ -3,7 +3,7 @@ import Image from "next/image";
 function Banner() {
   return (
     <div className="">
-      <div className=" w-full md:w-[99vw] h-[100vh] xl:h-[98vh] lg:h-[98vh] absolute -z-10">
+      <div className=" w-full h-[100vh] xl:h-[98vh] lg:h-[98vh] absolute -z-10">
         <Image
           src="/mainbanner2.webp"
           // width={100}

@@ -38,6 +38,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { articleCategory } from "@/helper/articleCategory";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 // import Banner from "./components/Banner";
 interface Article {
   objectId: string;
@@ -50,6 +52,8 @@ interface Article {
 
 export default function Home() {
   // import data artikel
+  // router
+  const router = useRouter();
 
   // akses data artikel  dari backendless
   const [articles, setArticles] = useState<Article[]>([]);
@@ -71,12 +75,13 @@ export default function Home() {
         const { data } = await apiCall.get(url);
 
         if (!data || data.length === 0) {
-          alert("Artikel tidak ditemukan.");
+          toast.error('Artikel Tidak Ditemukan!')
           setFilterCategory("All");
         }
         setArticles(data);
       } catch (error) {
         console.log(error);
+        
         alert("There is something wrong. Check Console!");
       }
     }
@@ -86,7 +91,7 @@ export default function Home() {
   return (
     <div>
       <header>
-        <div className="relative z-10 top-40 xl:top-50">
+        <div className="relative z-10 top-30 xl:top-50">
           {/* Mobile Version Additional */}
           <div className="inset-0 flex justify-center mx-10 items-center flex-col">
             <div className="">
@@ -520,12 +525,13 @@ export default function Home() {
           </div>
 
           <div className="w-full md:overflow-x-auto overflow-y-auto xl:h-170">
-            <div className="relative  md:p-10 gap-10 flex max-sm:flex-col max-sm:h-110 flex-nowrap ">
+            <div className="relative  md:p-10 gap-10 flex max-sm:flex-col max-sm:h-110 flex-nowrap  ">
               {articles.map((article) => (
                 <div
                   id="article"
                   className=" rounded-lg bg-white grayscale-100 max-lg:grayscale-0 md:min-w-[400px] p-6 border-2  md:min-h-140 cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-103 hover:border-blue-800  hover:border-4 hover:grayscale-0 hover:shadow-xl"
                   key={article.objectId}
+                  onClick={()=>router.push(`/article/${article.title}`)}
                 >
                   <Badge className="p-2 bg-blue-500">{article.category}</Badge>
                   <div className="flex flex-col">
@@ -546,12 +552,9 @@ export default function Home() {
                     <div className="flex md:justify-between max-sm:flex-col justify-center  items-center xl:text-xs  md:mx-auto md:absolute md:gap-x-10 md:bottom-2">
                       <p className="text-gray-600">{article.date}</p>
                       <p className="text-gray-600">Author : {article.author}</p>
-                      <Link
-                        href="#"
-                        className="underline underline-offset-6 text-blue-700 "
-                      >
+                      <p className="underline underline-offset-6 text-blue-700 " onClick={()=>router.push(`/article/${article.title}`)}>
                         Read More
-                      </Link>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -654,7 +657,7 @@ export default function Home() {
               </AccordionContent>
             </AccordionItem>
             {/*  */}
-            <AccordionItem value="q-3">
+            <AccordionItem value="q-4">
               <AccordionTrigger>
                 <p className="text-md md:text-xl font-bold">
                   Bagaimana proses klaim jika paket saya rusak atau hilang?

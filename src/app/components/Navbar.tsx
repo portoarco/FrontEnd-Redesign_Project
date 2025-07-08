@@ -73,17 +73,17 @@ function Navbar() {
                 <ul className="w-32 2xl:w-40">
                   <li className="">
                     <NavigationMenuLink asChild>
-                      <Link href="#about-us" className="2xl:text-lg">
+                      <Link href="/#about-us" className="2xl:text-lg">
                         About Us
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link href="#" className="2xl:text-lg">
+                      <Link href="/notfoundpage" className="2xl:text-lg">
                         Branch Office
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link href="/dokumen" className="2xl:text-lg">
+                      <Link href="/notfoundpage" className="2xl:text-lg">
                         Documents
                       </Link>
                     </NavigationMenuLink>
@@ -101,13 +101,13 @@ function Navbar() {
                 <ul className="w-36 2xl:w-55">
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#" className="2xl:text-lg">
+                      <Link href="/notfoundpage" className="2xl:text-lg">
                         Live Tracking
                       </Link>
                     </NavigationMenuLink>
 
                     <NavigationMenuLink asChild>
-                      <Link href="#" className="2xl:text-lg">
+                      <Link href="/notfoundpage" className="2xl:text-lg">
                         Tariff Check
                       </Link>
                     </NavigationMenuLink>
@@ -125,12 +125,12 @@ function Navbar() {
                 <ul className="w-32 2xl:w-40 ">
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="/" className="2xl:text-lg">
+                      <Link href="/#article-list" className="2xl:text-lg">
                         Article List
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link href="#faq-list" className="2xl:text-lg">
+                      <Link href="/#faq-list" className="2xl:text-lg">
                         FAQ Section
                       </Link>
                     </NavigationMenuLink>
@@ -148,12 +148,12 @@ function Navbar() {
                 <ul className="">
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="" className="2xl:text-lg">
+                      <Link href="/notfoundpage" className="2xl:text-lg">
                         Career
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link href="#" className="2xl:text-lg">
+                      <Link href="/notfoundpage" className="2xl:text-lg">
                         Partnership
                       </Link>
                     </NavigationMenuLink>

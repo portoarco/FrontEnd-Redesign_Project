@@ -8,6 +8,7 @@ import { useEffect, useRef } from "react";
 import { useAppDispatch } from "@/lib/redux/hook";
 import { setUser } from "@/lib/redux/features/userSlice";
 import { apiCall } from "@/helper/apiCall";
+import { toast, Bounce } from "react-toastify";
 // import { setUser } from "@/lib/redux/features/userSlice";
 // import { useAppDispatch } from "@/lib/redux/hook";
 
@@ -22,7 +23,17 @@ function LoginPage() {
 
     // validasi input tidak kosong
     if (!email || !password) {
-      alert("Email atau password tidak boleh kosong!");
+      toast.warn("Email atau Password Tidak Boleh Kosong", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
       return;
     }
 
@@ -35,7 +46,17 @@ function LoginPage() {
 
       // cek ada/tidak datanya di database sesuai inputan user
       if (response.data.length === 0) {
-        alert("Email atau Password Salah");
+        toast.error("Email atau Password Salah", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
         return;
       }
 
@@ -45,6 +66,7 @@ function LoginPage() {
 
       // Simpan Data ke Redux Store
       dispatch(setUser(userLoginData));
+      toast.success("Anda Berhasil Login");
       router.replace("/dashboard");
 
       // Simpan objectId ke localStorage
@@ -62,6 +84,12 @@ function LoginPage() {
       router.replace("/dashboard");
     }
   }, []);
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      btnLogin();
+    }
+  }
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen">
@@ -86,6 +114,7 @@ function LoginPage() {
                 type="email"
                 placeholder="Masukkan Email"
                 ref={inEmailRef}
+                onKeyDown={handleKeyDown}
               ></Input>
               <p className="py-3 text-xl">Password</p>
               <Input
@@ -93,6 +122,7 @@ function LoginPage() {
                 type="password"
                 placeholder="Masukkan Password"
                 ref={inPasswordRef}
+                onKeyDown={handleKeyDown}
               ></Input>
 
               <p className="mt-5 text-md">
