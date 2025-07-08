@@ -4,7 +4,7 @@ import Image from "next/image";
 import * as React from "react";
 
 interface IArticleDetailPageProps {
-  params: { title: string };
+  params:Promise<{ title: string }> ;
 }
 
 const getData = async (title: string) => {
@@ -16,14 +16,13 @@ const getData = async (title: string) => {
     return res.data[0];
   } catch (error) {
     console.log(error);
-    alert("Error check console");
   }
 };
 
-const ArticleDetailPage: React.FunctionComponent<
-  IArticleDetailPageProps
-> = async (props) => {
-  const detailData = await getData(props.params.title);
+
+const ArticleDetailPage = async ({params}:IArticleDetailPageProps) => {
+  const {title} = await params;
+  const detailData = await getData(title);
 
   return (
     <>
